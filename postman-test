@@ -1,0 +1,40 @@
+Prerequest-script
+-----------------
+var gatewayApiUrl="http://localhost:9090";
+pm.environment.set("gatewayApiUrl",gatewayApiUrl);
+--------------------------------------------------
+
+POST
+----
+{{gatewayApiUrl}}/v1/product/saveProduct
+{
+    "productName":"BULB",
+    "stockQuantity":10000
+}
+
+{{gatewayApiUrl}}/v1/order/placeOrder
+{
+    "orderName":"Orders",
+    "productId":1,
+    "totalAmount":1000,
+    "paymentMode":"CASH",
+    "quantity":10
+}
+
+{{gatewayApiUrl}}/v1/payment/doPayment
+{
+    "orderId":1,
+	"referenceNo":"wd222",
+	"amount":1000,
+    "paymentMode":"CASH"
+}
+
+PUT
+---
+{{gatewayApiUrl}}/v1/product/reduceQuantity/1?quantity=10
+
+GET
+---
+{{gatewayApiUrl}}/v1/order/1
+{{gatewayApiUrl}}/v1/payment/getPaymentDetailsByOrderId?orderId=1
+{{gatewayApiUrl}}/v1/product/1
